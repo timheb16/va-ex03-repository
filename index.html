@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VA Exercise 1</title>
+    <link rel="icon" type="image/x-icon" href="visva_sitelogo_no_white.png" />
+    <link href="main.css" rel="stylesheet" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+  </head>
+  <body>
+    <div class="header">
+      <img
+        class="logo"
+        id="logo"
+        onclick="window.open('https://visva.cs.uni-koeln.de', '_blank')"
+        src="visva_sitelogo_no_white.png"
+      />
+      <div class="buttons">
+        <!-- The request data function might take some time. If button "Task1" does not show
+        anything please reload the page and try again, but wait a couple of seconds between
+        clicking the buttons "Read in data" and "Task 1". The process of the read can also be
+        seen when opening the terminal in your browser.-->
+        <button class="function_button" onclick="request_data()">Read in data</button> 
+        <button class="function_button" onclick="drawVis()">Task 1</button>
+        <button class="function_button" onclick="paintHistogram()">Task 2</button>
+        <!--<button class="function_button" onclick="request_data_2()">Read in data 2</button> 
+        <button class="function_button" onclick="compute_averages_task_2()">Calculate Averages</button> 
+        <button class="function_button" onclick="clean_data_task_2()">Clean data</button> -->
+        <button class="function_button" onclick="vis_exercise_2()">Vis Exercise 2</button> 
+        <button class="function_button" onclick="vis_exercise_3()">Vis Exercise 3</button> 
+
+
+
+
+      </div>
+    </div>
+    <div id="parentContainer">
+    <div id="container">
+      <svg id="svgRoot">
+      </svg>
+      <div id="histogram">
+        <p>
+        </p>
+      </div>
+    </div>
+    <div id="container2">
+     <div id="scatterplot">
+    </div>  
+    </div>
+    <div id="container3">
+      <div id="network", preferCanvas: true>
+     </div>  
+     </div>
+  </body>
+</html>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+
+
+<style>
+  table, th, td {
+     border: 1px solid black;
+  }
+  .stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.fill {
+  fill: #fff;
+}
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: 0.5px;
+  stroke-opacity: 0.5;
+}
+
+.land {
+  fill: #222;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 0.5px;
+}
+</style>

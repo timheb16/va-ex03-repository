@@ -1,0 +1,121 @@
+/* We want these items to span the whole area the have (svgs don't do this by default)
+And we don't want unwanted scrollbars by accident */
+html,
+body,
+head
+/*svg*/ {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+body {
+  display: grid;
+  grid-template-areas: "header" "content";
+  grid-template-rows: 100px auto;
+}
+
+.header {
+  grid-area: header;
+  background-color: #3e566c;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas: "logo buttons";
+  grid-template-columns: 250px auto;
+  border-bottom: 2px solid white;
+}
+
+.logo {
+  grid-area: logo;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.content {
+  grid-area: content;
+}
+
+.buttons {
+  grid-area: buttons;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.function_button {
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color: #3e566c;
+}
+
+.function_button:hover {
+  background-color: #3e566c;
+  color: white;
+  border-color: white;
+}
+
+#container {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+
+}
+
+#container2 {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+#histogram {
+    overflow: hidden;
+    height: 100%;
+
+}
+
+#svgRoot{
+  width: 40%;
+  float:left;
+  margin-top: 50px;
+}
+
+
+#scatterplot {
+  overflow: hidden;
+  height: 100%;
+  width: 50%;
+
+}
+
+#nBin {
+  margin-left: 20px;
+  margin-top: 0px;
+}
+
+#binLabel {
+  margin-left: 80px;
+  margin-top: 0px;
+}
+
+#parentContainer {
+  overflow:scroll;
+}
+
+.bubbles {
+  stroke-width: 1px;
+  stroke: black;
+  opacity: .8
+}
+.bubbles:hover {
+  stroke: black;
+}
+
+#network {
+  height: 600px;
+  width: 500px;
+}
