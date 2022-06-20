@@ -769,26 +769,65 @@ socket.on("network_drawing", (obj) => {
 
   var kanten = data.edges
   var knoten = data.vertices
+  var month = "2016-01"
+  var maxDistance = 75000
   
   for (let i = 0; i < kanten.length; i++)
   {
     var aktuelleKante = kanten[i]
     var distanz = aktuelleKante["distance"]
-    if (distanz < 100000)
+    if (distanz < maxDistance )
       {
-      var co1 = aktuelleKante["coo_1"]
-      var co2 = aktuelleKante["coo_2"]
-      var latStart = co1.lat
-      var lonStart = co1.lon
-      var latEnd = co2.lat
-      var lonEnd = co2.lon
-      var polygon = L.polygon([[latStart, lonStart],[latEnd, lonEnd]], {
-        color: 'blue',
-        fillColor: 'light blue',
-        fillOpacity: 0.7,
-        weight: 1,
-        stroke: true
-    }).addTo(map);
+            var co1 = aktuelleKante["coo_1"]
+            var co2 = aktuelleKante["coo_2"]
+            var latStart = co1.lat
+            var lonStart = co1.lon
+            var latEnd = co2.lat
+            var lonEnd = co2.lon
+            var polygon = L.polygon([[latStart, lonStart],[latEnd, lonEnd]], {
+              color: "#A9A9A9",
+              fillColor: "#A9A9A9",
+              fillOpacity: 0.4,
+              weight: 1,
+              stroke: true
+          })
+          if(aktuelleKante["sum_of_squared_error"] != null)
+          {
+            var error = aktuelleKante["sum_of_squared_error"]
+            var value = error[month]
+            if(error[month] != null)
+            {
+              if(value < 10 && value>=0)
+                {
+                  polygon.setStyle({fillColor: "#ffdad9"})
+                  polygon.setStyle({color: "#ffdad9"})
+                  polygon.setStyle({fillOpacity: 1})
+
+                }
+                if(value < 15 && value>=10)
+                {
+                  polygon.setStyle({fillColor: "#fe908e"})
+                  polygon.setStyle({color: "#fe908e"})
+                  polygon.setStyle({fillOpacity: 1})
+
+                }
+                if(value < 20 && value>=15)
+                {
+                  polygon.setStyle({fillColor: "#fd4543"})
+                  polygon.setStyle({color: "#fd4543"})
+                  polygon.setStyle({fillOpacity: 1})
+
+                }
+                if(value >= 20)
+                {
+                  polygon.setStyle({fillColor: "#ba0e0d"})
+                  polygon.setStyle({color: "#ba0e0d"})
+                  polygon.setStyle({fillOpacity: 1})
+
+                }
+            }
+          }
+          polygon.addTo(map);
     }
   }
   for (let i = 0; i < knoten.length; i++)
@@ -797,12 +836,42 @@ socket.on("network_drawing", (obj) => {
     var lat = aktuellerKnoten.lat
     var lon = aktuellerKnoten.lon
     var circle = L.circle([lat, lon], {
-      color: 'red',
-      fillColor: '#f03',
+      color: '#000000',
+      fillColor: '#000000',
       fillOpacity: 0.7,
-      radius: 3000,
+      radius: 3500,
       stroke: true
-  }).addTo(map);
+  })
+
+  if(aktuellerKnoten["mean"] != null)
+          {
+            var mean = aktuellerKnoten["mean"]
+            var value = mean[month]
+            if(mean[month] != null)
+            {
+              if(value < 10 && value>=0)
+                {
+                  circle.setStyle({fillColor: "#ffdad9"})
+                  circle.setStyle({color: "#ffdad9"})
+                }
+                if(value < 20 && value>=10)
+                {
+                  circle.setStyle({fillColor: "#fe908e"})
+                  circle.setStyle({color: "#fe908e"})
+                }
+                if(value < 30 && value>=20)
+                {
+                  circle.setStyle({fillColor: "#fd4543"})
+                  circle.setStyle({color: "#fd4543"})
+                }
+                if(value >= 30)
+                {
+                  circle.setStyle({fillColor: "#ba0e0d"})
+                  circle.setStyle({color: "#ba0e0d"})
+                }
+            }
+          }
+  circle.addTo(map);
   }
 
 })
