@@ -750,8 +750,7 @@ let vis_exercise_2 = () => {
 }
 
 let vis_exercise_3 = () => {
-    console.log("start network graph")
-    var json_data = fs.readFileSync("../data/full_graph.json", "utf8")
+    var json_data = fs.readFileSync("full_graph_modified.json", "utf8")
     let data = JSON.parse(json_data)
     socket.emit("network_drawing", data)
     
