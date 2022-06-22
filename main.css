@@ -72,6 +72,13 @@ body {
   height: 100%;
 }
 
+#container3 {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+
+}
+
 #histogram {
     overflow: hidden;
     height: 100%;
@@ -90,6 +97,21 @@ body {
   height: 100%;
   width: 50%;
 
+}
+
+#networkInput {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+#distanceInput {
+  margin-left: 20px;
+  padding: 10px;
+}
+
+#networkLabel {
+  margin-left: 80px;
+  padding: 10px;
 }
 
 #nBin {
@@ -116,6 +138,7 @@ body {
 }
 
 #network {
-  height: 600px;
+  height: 700px;
   width: 500px;
+  overflow: hidden;
 }

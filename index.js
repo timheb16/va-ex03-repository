@@ -747,11 +747,89 @@ socket.on("network_drawing", (obj) => {
 
   data = obj
 
+  let networkLabel = document.createElement("label");
+  networkLabel.id = "networkLabel";
+  networkLabel.innerHTML = "Select month: ";
+
+  let networkInput = document.createElement("select");
+  networkInput.appendChild(new Option("Jan 2016", "2016-01"));
+  networkInput.appendChild(new Option("Feb 2016", "2016-02"));
+  networkInput.appendChild(new Option("Mar 2016", "2016-03"));
+  networkInput.appendChild(new Option("Apr 2016", "2016-04"));
+  networkInput.appendChild(new Option("May 2016", "2016-05"));
+  networkInput.appendChild(new Option("Jun 2016", "2016-06"));
+  networkInput.appendChild(new Option("Jul 2016", "2016-07"));
+  networkInput.appendChild(new Option("Aug 2016", "2016-08"));
+  networkInput.appendChild(new Option("Sep 2016", "2016-09"));
+  networkInput.appendChild(new Option("Oct 2016", "2016-10"));
+  networkInput.appendChild(new Option("Nov 2016", "2016-11"));
+  networkInput.appendChild(new Option("Dec 2016", "2016-12"));
+  networkInput.appendChild(new Option("Jan 2017", "2017-01"));
+  networkInput.appendChild(new Option("Feb 2017", "2017-02"));
+  networkInput.appendChild(new Option("Mar 2017", "2017-03"));
+  networkInput.appendChild(new Option("Apr 2017", "2017-04"));
+  networkInput.appendChild(new Option("May 2017", "2017-05"));
+  networkInput.appendChild(new Option("Jun 2017", "2017-06"));
+  networkInput.appendChild(new Option("Jul 2017", "2017-07"));
+  networkInput.appendChild(new Option("Aug 2017", "2017-08"));
+  networkInput.appendChild(new Option("Sep 2017", "2017-09"));
+  networkInput.appendChild(new Option("Oct 2017", "2017-10"));
+  networkInput.appendChild(new Option("Nov 2017", "2017-11"));
+  networkInput.appendChild(new Option("Dec 2017", "2017-12"));
+  networkInput.appendChild(new Option("Jan 2018", "2018-01"));
+  networkInput.appendChild(new Option("Feb 2018", "2018-02"));
+  networkInput.appendChild(new Option("Mar 2018", "2018-03"));
+  networkInput.appendChild(new Option("Apr 2018", "2018-04"));
+  networkInput.appendChild(new Option("May 2018", "2018-05"));
+  networkInput.appendChild(new Option("Jun 2018", "2018-06"));
+  networkInput.appendChild(new Option("Jul 2018", "2018-07"));
+  networkInput.appendChild(new Option("Aug 2018", "2018-08"));
+  networkInput.appendChild(new Option("Sep 2018", "2018-09"));
+  networkInput.appendChild(new Option("Oct 2018", "2018-10"));
+  networkInput.appendChild(new Option("Nov 2018", "2018-11"));
+  networkInput.appendChild(new Option("Dec 2018", "2018-12"));
+  networkInput.appendChild(new Option("Jan 2019", "2019-01"));
+  networkInput.appendChild(new Option("Feb 2019", "2019-02"));
+  networkInput.appendChild(new Option("Mar 2019", "2019-03"));
+  networkInput.appendChild(new Option("Apr 2019", "2019-04"));
+  networkInput.appendChild(new Option("May 2019", "2019-05"));
+  networkInput.appendChild(new Option("Jun 2019", "2019-06"));
+  networkInput.appendChild(new Option("Jul 2019", "2019-07"));
+  networkInput.appendChild(new Option("Aug 2019", "2019-08"));
+  networkInput.appendChild(new Option("Sep 2019", "2019-09"));
+  networkInput.appendChild(new Option("Oct 2019", "2019-10"));
+  networkInput.appendChild(new Option("Nov 2019", "2019-11"));
+  networkInput.appendChild(new Option("Dec 2019", "2019-12"));
+  networkInput.id = "networkInput";
+
+  let distanceInput = document.createElement("input");
+  distanceInput.type = "number";
+  distanceInput.min = "1";
+  distanceInput.max = "200000";
+  distanceInput.step = "1";
+  distanceInput.value = "80000";
+  distanceInput.id = "distanceInput";
+
+
+  //document.getElementById("network").appendChild(networkLabel);
+  //document.getElementById("network").appendChild(networkInput);
+
+  document.body.appendChild(networkLabel);
+  document.body.appendChild(networkInput);
+  document.body.appendChild(distanceInput);
+
+
+
+
   const margin = {top: 75, right: 75, bottom: 100, left: 75},
   width = parseInt(d3.select("#network").style("width")) - margin.left - margin.right,
   height = parseInt(d3.select("#network").style("height")) - margin.top - margin.bottom;
 
-  var map = L.map('network').setView([51.5, 10.33333], 6);
+  var month = "2016-01"
+  var maxDistance = 75000
+
+
+  var map = L.map('network').setView([50, 10.33333], 5.5);
 
   /*
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -767,10 +845,24 @@ socket.on("network_drawing", (obj) => {
     ext: 'png'
   }).addTo(map);
 
+  function update (month, maxDistance)
+  {
+  console.log("running update with", month, maxDistance)
+
+  for(i in map._layers) {
+    if(map._layers[i]._path != undefined) {
+        try {
+            map.removeLayer(map._layers[i]);
+        }
+        catch(e) {
+            console.log("problem with " + e + map._layers[i]);
+        }
+    }
+}
+
   var kanten = data.edges
   var knoten = data.vertices
-  var month = "2016-01"
-  var maxDistance = 75000
+  var months = [0, 10, 11, 40, 44, 47]
   
   for (let i = 0; i < kanten.length; i++)
   {
@@ -791,20 +883,20 @@ socket.on("network_drawing", (obj) => {
               weight: 1,
               stroke: true
           })
-          if(aktuelleKante["sum_of_squared_error"] != null)
+          if(aktuelleKante["mean_of_daily_differences"] != null)
           {
-            var error = aktuelleKante["sum_of_squared_error"]
+            var error = aktuelleKante["mean_of_daily_differences"]
             var value = error[month]
             if(error[month] != null)
             {
-              if(value < 10 && value>=0)
+              if(value < 7.5 && value>=0)
                 {
                   polygon.setStyle({fillColor: "#ffdad9"})
                   polygon.setStyle({color: "#ffdad9"})
                   polygon.setStyle({fillOpacity: 1})
 
                 }
-                if(value < 15 && value>=10)
+                if(value < 15 && value>=7.5)
                 {
                   polygon.setStyle({fillColor: "#fe908e"})
                   polygon.setStyle({color: "#fe908e"})
@@ -872,6 +964,24 @@ socket.on("network_drawing", (obj) => {
             }
           }
   circle.addTo(map);
-  }
+  }  
+}
+
+update(month, maxDistance)
+
+dropdown = d3.select("#networkInput")
+dropdown.on("change",function() {
+var select = document.getElementById('networkInput');
+var monthValue = select.options[select.selectedIndex].value;
+update(monthValue, maxDistance);
+});
+
+distInput = d3.select("#distanceInput")
+distInput.on("change",function() {
+  var select = document.getElementById('distanceInput');
+  var distanceValue = select.value;
+  update(month, distanceValue);
+  });
+
 
 })
