@@ -752,7 +752,7 @@ socket.on("network_drawing", (obj) => {
   networkLabel.innerHTML = "Select month: ";
 
   let networkInput = document.createElement("select");
-  networkInput.appendChild(new Option("Jan 2016", "2016-01"));
+  networkInput.appendChild(new Option("Jan 2016 (Significant Timestep based on Activity)", "2016-01"));
   networkInput.appendChild(new Option("Feb 2016", "2016-02"));
   networkInput.appendChild(new Option("Mar 2016", "2016-03"));
   networkInput.appendChild(new Option("Apr 2016", "2016-04"));
@@ -762,8 +762,8 @@ socket.on("network_drawing", (obj) => {
   networkInput.appendChild(new Option("Aug 2016", "2016-08"));
   networkInput.appendChild(new Option("Sep 2016", "2016-09"));
   networkInput.appendChild(new Option("Oct 2016", "2016-10"));
-  networkInput.appendChild(new Option("Nov 2016", "2016-11"));
-  networkInput.appendChild(new Option("Dec 2016", "2016-12"));
+  networkInput.appendChild(new Option("Nov 2016 (Significant Timestep based on Activity)", "2016-11"));
+  networkInput.appendChild(new Option("Dec 2016 (Significant Timestep based on Activity)", "2016-12"));
   networkInput.appendChild(new Option("Jan 2017", "2017-01"));
   networkInput.appendChild(new Option("Feb 2017", "2017-02"));
   networkInput.appendChild(new Option("Mar 2017", "2017-03"));
@@ -792,15 +792,18 @@ socket.on("network_drawing", (obj) => {
   networkInput.appendChild(new Option("Feb 2019", "2019-02"));
   networkInput.appendChild(new Option("Mar 2019", "2019-03"));
   networkInput.appendChild(new Option("Apr 2019", "2019-04"));
-  networkInput.appendChild(new Option("May 2019", "2019-05"));
+  networkInput.appendChild(new Option("May 2019 (Significant Timestep based on Activity)", "2019-05"));
   networkInput.appendChild(new Option("Jun 2019", "2019-06"));
   networkInput.appendChild(new Option("Jul 2019", "2019-07"));
   networkInput.appendChild(new Option("Aug 2019", "2019-08"));
-  networkInput.appendChild(new Option("Sep 2019", "2019-09"));
+  networkInput.appendChild(new Option("Sep 2019 (Significant Timestep based on Activity)", "2019-09"));
   networkInput.appendChild(new Option("Oct 2019", "2019-10"));
   networkInput.appendChild(new Option("Nov 2019", "2019-11"));
-  networkInput.appendChild(new Option("Dec 2019", "2019-12"));
+  networkInput.appendChild(new Option("Dec 2019 (Significant Timestep based on Activity)", "2019-12"));
   networkInput.id = "networkInput";
+
+  //significant months ex 2: 0, 10, 11, 40, 44, 47
+
 
   let distanceInput = document.createElement("input");
   distanceInput.type = "number";
@@ -973,8 +976,12 @@ dropdown = d3.select("#networkInput")
 dropdown.on("change",function() {
 var select = document.getElementById('networkInput');
 var monthValue = select.options[select.selectedIndex].value;
-update(monthValue, maxDistance);
+var input = document.getElementById('distanceInput');
+var dist = input.value;
+update(monthValue, dist);
 });
+
+
 
 distInput = d3.select("#distanceInput")
 distInput.on("change",function() {

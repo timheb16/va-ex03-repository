@@ -104,6 +104,11 @@ body {
   padding: 10px;
 }
 
+#monthsInput {
+  margin-left: 20px;
+  padding: 10px;
+}
+
 #distanceInput {
   margin-left: 20px;
   padding: 10px;
